@@ -6,8 +6,12 @@ type Product {
   sku: String!
   id: ID!
   name: String!
-  price: Float!
+  price: String!
   category: [Category!]!
+  material: String!
+  images: String!
+  date: String!
+
 }
 
 type Category {

@@ -7,33 +7,69 @@ use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\ResourceModel\Category\CollectionFactory;
+use Magento\Store\Model\StoreManagerInterface; // Import the StoreManagerInterface
+use Magento\Framework\Stdlib\DateTime\DateTimeFormatterInterface;
+use Magento\Directory\Model\CurrencyFactory;
 
+/**
+ * Resolver for fetching product details with category.
+ */
 class ProductWithCategory implements ResolverInterface
 {
-    /** @var ProductRepositoryInterface */
-    private $productRepository;
+    /**
+     * @var ProductRepositoryInterface
+     */
+    protected $productRepository;
 
-    /** @var Product */
+    /**
+     * @var Product
+     */
     protected $product;
 
-    /** @var CollectionFactory */
+    /**
+     * @var CollectionFactory
+     */
     protected $categoryCollection;
 
     /**
-     * Constructor.
+     * @var StoreManagerInterface
+     */
+    protected $storeManager;
+
+    /**
+     * @var DateTimeFormatterInterface
+     */
+    protected $dateTimeFormatter;
+
+    /**
+     * @var CurrencyFactory
+     */
+    protected $currencyFactory;
+
+    /**
+     * ProductWithCategory constructor.
      *
      * @param ProductRepositoryInterface $productRepository
      * @param Product $product
      * @param CollectionFactory $categoryCollection
+     * @param StoreManagerInterface $storeManager
+     * @param DateTimeFormatterInterface $dateTimeFormatter
+     * @param CurrencyFactory $currencyFactory
      */
     public function __construct(
         ProductRepositoryInterface $productRepository,
         Product $product,
-        CollectionFactory $categoryCollection
+        CollectionFactory $categoryCollection,
+        StoreManagerInterface $storeManager,
+        DateTimeFormatterInterface $dateTimeFormatter,
+        CurrencyFactory $currencyFactory
     ) {
         $this->productRepository = $productRepository;
         $this->product = $product;
         $this->categoryCollection = $categoryCollection;
+        $this->storeManager = $storeManager;
+        $this->dateTimeFormatter = $dateTimeFormatter;
+        $this->currencyFactory = $currencyFactory;
     }
 
     /**
@@ -49,20 +85,26 @@ class ProductWithCategory implements ResolverInterface
      */
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
-        $writer = new \Zend_Log_Writer_Stream(BP . '/var/log/custom.log');
-        $logger = new \Zend_Log();
-        $logger->addWriter($writer);
         $sku = $args['sku'];
 
         try {
             $product = $this->productRepository->get($sku);
             $categoryNames = $this->getCategoriesName($product->getId());
+            $materials = $product->getAttributeText('materials');
+            $relativeImagePath = $product->getData('images');
+            $imageUrl = $this->storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' . $relativeImagePath;
+            $date = $this->formatDate($product->getData('special_price_data'));
+            $price = $this->formatPrice($product->getPrice());
+
             return [
                 'sku' => $sku,
                 'id' => $product->getId(),
                 'name' => $product->getName(),
-                'price' => $product->getPrice(),
-                'category' => $categoryNames
+                'price' => $price,
+                'category' => $categoryNames,
+                'material' => $materials,
+                'images' => $imageUrl,
+                'date' => $date
             ];
         } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
             throw new \Exception(__('Product with SKU %1 does not exist.', $sku));
@@ -72,12 +114,36 @@ class ProductWithCategory implements ResolverInterface
     }
 
     /**
+     * Format date.
+     *
+     * @param string $date
+     * @return string
+     */
+    public function formatDate($date)
+    {
+        $dateTime = new \DateTime($date);
+        return $this->dateTimeFormatter->formatObject($dateTime, \IntlDateFormatter::LONG);
+    }
+
+    /**
+     * Format price with currency.
+     *
+     * @param float $price
+     * @return string
+     */
+    public function formatPrice($price)
+    {
+        $currencyCode = $this->storeManager->getStore()->getCurrentCurrency()->getCode();
+        $currencySymbol = $this->currencyFactory->create()->load($currencyCode)->getCurrencySymbol();
+        return $currencySymbol . number_format((float)$price, 2);
+    }
+
+    /**
      * Get category names for a product.
      *
      * @param int $productId
      * @return array
      */
-
     public function getCategoriesName($productId)
     {
         $writer = new \Zend_Log_Writer_Stream(BP . '/var/log/custom.log');
@@ -90,7 +156,6 @@ class ProductWithCategory implements ResolverInterface
         $categoryNames = [];
         foreach ($categories as $category) {
             $categoryNames[] = [
-
                 'id' => $category->getId(),
                 'name' => $category->getName()
             ];

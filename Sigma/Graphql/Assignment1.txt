@@ -1,21 +1,20 @@
 
-FILE: ...ml/magento1/app/code/Sigma/Graphql/Model/Resolver/ProductWithCategory.php
--------------------------------------------------------------------------------
-FOUND 0 ERRORS AND 3 WARNINGS AFFECTING 3 LINES
--------------------------------------------------------------------------------
- 68 | WARNING | Direct throw of generic Exception is discouraged. Use context
-    |         | specific instead.
- 70 | WARNING | Direct throw of generic Exception is discouraged. Use context
-    |         | specific instead.
- 89 | WARNING | Line exceeds 120 characters; contains 134 characters
--------------------------------------------------------------------------------
+FILE: /var/www/html/magento1/app/code/Sigma/Graphql/Model/Resolver/ProductWithCategory.php
+-------------------------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 4 WARNINGS AFFECTING 4 LINES
+-------------------------------------------------------------------------------------------------
+  95 | WARNING | Line exceeds 120 characters; contains 158 characters
+ 110 | WARNING | Direct throw of generic Exception is discouraged. Use context specific instead.
+ 112 | WARNING | Direct throw of generic Exception is discouraged. Use context specific instead.
+ 155 | WARNING | Line exceeds 120 characters; contains 134 characters
+-------------------------------------------------------------------------------------------------
 
 
-FILE: ...tml/magento1/app/code/Sigma/Graphql/Model/Resolver/UpdateProductStock.php
--------------------------------------------------------------------------------
+FILE: /var/www/html/magento1/app/code/Sigma/Graphql/Model/Resolver/UpdateProductStock.php
+-----------------------------------------------------------------------------------------
 FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
--------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
  19 | WARNING | Comment block is missing
--------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
 
 
