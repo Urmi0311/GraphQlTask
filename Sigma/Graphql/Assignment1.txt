@@ -1,0 +1,9 @@
+
+FILE: ...tml/magento1/app/code/Sigma/Graphql/Model/Resolver/UpdateProductStock.php
+-------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+-------------------------------------------------------------------------------
+ 19 | WARNING | Comment block is missing
+-------------------------------------------------------------------------------
+
+

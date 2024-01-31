@@ -1,0 +1,7 @@
+type Mutation {
+  updateProductStock(sku: String!, quantity: Float!): Product @resolver(class: "Sigma\\Graphql\\Model\\Resolver\\UpdateProductStock") @doc(description: "Update stock quantity of a product")
+}
+
+type Product {
+  sku: String!
+}
