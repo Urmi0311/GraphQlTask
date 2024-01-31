@@ -4,4 +4,18 @@ type Mutation {
 
 type Product {
   sku: String!
+  id: ID!
+  name: String!
+  price: Float!
+  category: [Category!]!
+}
+
+type Category {
+  id: ID!
+  name: String!
+  description: String
+}
+
+type Query {
+  productBySku(sku: String!): Product @resolver(class: "Sigma\\Graphql\\Model\\Resolver\\ProductWithCategory") @doc(description: "Get product details by SKU with associated category")
 }
