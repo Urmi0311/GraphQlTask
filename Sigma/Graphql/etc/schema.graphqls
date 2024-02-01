@@ -4,6 +4,7 @@ type Mutation {
 
 type Product {
   sku: String!
+  quantity: Float!
   id: ID!
   name: String!
   price: String!
@@ -23,3 +24,25 @@ type Category {
 type Query {
   productBySku(sku: String!): Product @resolver(class: "Sigma\\Graphql\\Model\\Resolver\\ProductWithCategory") @doc(description: "Get product details by SKU with associated category")
 }
+
+type Query {
+  products(
+    pageSize: Int = 20,
+    currentPage: Int = 1,
+    category: String,
+    minPrice: Float,
+    maxPrice: Float
+    priceRange: PriceRangeInput
+  ): ProductList! @resolver(class: "Sigma\\Graphql\\Model\\Resolver\\ProductList")
+}
+
+input PriceRangeInput {
+  min: Float
+  max: Float
+}
+
+type ProductList {
+  items: [Product!]!
+  totalCount: Int!
+}
+

@@ -1,12 +1,13 @@
 
 FILE: /var/www/html/magento1/app/code/Sigma/Graphql/Model/Resolver/ProductWithCategory.php
 -------------------------------------------------------------------------------------------------
-FOUND 0 ERRORS AND 4 WARNINGS AFFECTING 4 LINES
+FOUND 0 ERRORS AND 5 WARNINGS AFFECTING 5 LINES
 -------------------------------------------------------------------------------------------------
   95 | WARNING | Line exceeds 120 characters; contains 158 characters
  110 | WARNING | Direct throw of generic Exception is discouraged. Use context specific instead.
  112 | WARNING | Direct throw of generic Exception is discouraged. Use context specific instead.
- 155 | WARNING | Line exceeds 120 characters; contains 134 characters
+ 138 | WARNING | Line exceeds 120 characters; contains 157 characters
+ 173 | WARNING | Line exceeds 120 characters; contains 134 characters
 -------------------------------------------------------------------------------------------------
 
 
