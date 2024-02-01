@@ -7,7 +7,7 @@ use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\ResourceModel\Category\CollectionFactory;
-use Magento\Store\Model\StoreManagerInterface; // Import the StoreManagerInterface
+use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\Stdlib\DateTime\DateTimeFormatterInterface;
 use Magento\Directory\Model\CurrencyFactory;
 
@@ -63,7 +63,8 @@ class ProductWithCategory implements ResolverInterface
         StoreManagerInterface $storeManager,
         DateTimeFormatterInterface $dateTimeFormatter,
         CurrencyFactory $currencyFactory
-    ) {
+    )
+    {
         $this->productRepository = $productRepository;
         $this->product = $product;
         $this->categoryCollection = $categoryCollection;
@@ -119,11 +120,30 @@ class ProductWithCategory implements ResolverInterface
      * @param string $date
      * @return string
      */
+
     public function formatDate($date)
     {
         $dateTime = new \DateTime($date);
-        return $this->dateTimeFormatter->formatObject($dateTime, \IntlDateFormatter::LONG);
+        $day = $dateTime->format('j');
+        $month = $dateTime->format('M');
+        $year = $dateTime->format('Y');
+        $suffix = $this->getDaySuffix($day);
+        return $day . $suffix . ' ' . $month . ' ' . $year;
     }
+
+    protected function getDaySuffix($day)
+    {
+        if ($day % 10 == 1 && $day != 11) {
+            return 'st';
+        } elseif ($day % 10 == 2 && $day != 12) {
+            return 'nd';
+        } elseif ($day % 10 == 3 && $day != 13) {
+            return 'rd';
+        } else {
+            return 'th';
+        }
+    }
+
 
     /**
      * Format price with currency.
@@ -144,6 +164,7 @@ class ProductWithCategory implements ResolverInterface
      * @param int $productId
      * @return array
      */
+
     public function getCategoriesName($productId)
     {
         $writer = new \Zend_Log_Writer_Stream(BP . '/var/log/custom.log');
