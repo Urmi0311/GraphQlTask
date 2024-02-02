@@ -1,0 +1,22 @@
+extend type Query {
+  customerOrderHistory: [CustomerOrder] @resolver(class: "Sigma\\CustomerOrder\\Model\\Resolver\\CustomerOrder") @doc(description: "Retrieve customer's order history with detailed information.")
+}
+
+type CustomerOrder {
+  order_number: String!
+  date: String!
+  products: [OrderProduct]!
+
+  total_amount: String!
+  shipping_amount: String!
+}
+
+type OrderProduct {
+  name: String!
+  quantity: Float!
+  price: String!
+   discount_amount: String!
+     tax_amount: String!
+     total: String!
+
+}

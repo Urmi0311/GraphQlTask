@@ -1,0 +1,14 @@
+
+FILE: /var/www/html/magento1/app/code/Sigma/CustomerOrder/Model/Resolver/CustomerOrder.php
+------------------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 6 WARNINGS AFFECTING 6 LINES
+------------------------------------------------------------------------------------------
+  81 | WARNING | Type is not specified
+ 125 | WARNING | Type is not specified
+ 155 | WARNING | Type is not specified
+ 166 | WARNING | Type is not specified
+ 178 | WARNING | Type is not specified
+ 191 | WARNING | Type is not specified
+------------------------------------------------------------------------------------------
+
+
