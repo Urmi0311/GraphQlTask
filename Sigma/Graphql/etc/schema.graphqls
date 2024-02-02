@@ -12,6 +12,8 @@ type Product {
   material: String!
   images: String!
   date: String!
+  brand: String
+  popularity: Int
 
 }
 
@@ -45,4 +47,33 @@ type ProductList {
   items: [Product!]!
   totalCount: Int!
 }
+
+type Query {
+  searchProducts(
+    query: String
+    filters: ProductFilters
+    sort: ProductSort
+  ): [Product] @resolver(class: "Sigma\\Graphql\\Model\\Resolver\\ProductSearch") @doc(description: "Search for products with advanced filtering and sorting.")
+}
+
+input ProductFilters {
+  brandss: String
+  price: PriceRangeInput
+}
+
+input PriceRangeInput {
+  min: Float
+  max: Float
+}
+
+input ProductSort {
+  direction: SortDirectionEnum!
+}
+
+enum SortDirectionEnum {
+  ASC
+  DESC
+}
+
+
 
