@@ -1,0 +1,19 @@
+
+type Query {
+  storeLocator(latitude: Float!, longitude: Float!, radius: Int!): [Store] @resolver(class: "Sigma\\PhysicalStore\\Model\\Resolver\\StoreLocatorResolver") @doc(description : "Get store locations within a certain radius of the given latitude and longitude")
+  getStoreLocations(enabled: Boolean): [Store!]! @resolver(class: "Sigma\\PhysicalStore\\Model\\Resolver\\AllStores") @doc(description: "Get all store locations")
+  getStoresByCategory(categoryId: Int!): [Store!]! @resolver(class: "Sigma\\PhysicalStore\\Model\\Resolver\\AllCategories")  @doc(description: "Get store locations by category ID")
+
+}
+
+
+
+
+
+ type Store {
+  storeName: String!
+  address: String!
+  status: String!
+  distance: Float
+
+}
