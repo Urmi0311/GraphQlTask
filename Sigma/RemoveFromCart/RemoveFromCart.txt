@@ -1,0 +1,9 @@
+
+FILE: /var/www/html/magento1/app/code/Sigma/RemoveFromCart/Model/Resolver/RemoveFromCart.php
+------------------------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+------------------------------------------------------------------------------------------------
+ 95 | WARNING | Direct throw of generic Exception is discouraged. Use context specific instead.
+------------------------------------------------------------------------------------------------
+
+

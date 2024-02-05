@@ -1,0 +1,12 @@
+type Mutation {
+  removeFromCart(input: RemoveFromCartInput!): RemoveFromCartOutput @resolver(class: "Sigma\\RemoveFromCart\\Model\\Resolver\\RemoveFromCart") @doc(description: "Remove product from the shopping cart")
+}
+
+input RemoveFromCartInput {
+  cart_id: String!
+  item_id: Int!
+}
+
+type RemoveFromCartOutput {
+  success: Boolean! @doc(description: "Indicates whether the product was successfully removed from the cart")
+}

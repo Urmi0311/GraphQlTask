@@ -1,0 +1,31 @@
+type Mutation {
+  addProductToCart(input: AddProductToCartInput!): AddProductToCartOutput @resolver(class: "Sigma\\AddToCart\\Model\\Resolver\\AddToCart") @doc(description: "Add product to the shopping cart")
+}
+
+
+input AddProductToCartInput {
+  cart_id: String!
+  sku: String!
+  quantity: Float!
+}
+
+type AddProductToCartOutput {
+  cart: ShoppingCart @doc(description: "Updated shopping cart information")
+}
+
+type ShoppingCart {
+  items: [CartItem!]! @doc(description: "List of items in the shopping cart")
+}
+
+type CartItem {
+  id: ID! @doc(description: "Unique identifier for the cart item")
+  product: Product! @doc(description: "Product details of the cart item")
+  quantity: Float! @doc(description: "Quantity of the product in the cart")
+}
+
+type Product {
+  name: String! @doc(description: "Name of the product")
+  sku: String! @doc(description: "Stock Keeping Unit (SKU) of the product")
+  price: Float! @doc(description: "Price of the product")
+  # Add more product attributes as needed
+}
