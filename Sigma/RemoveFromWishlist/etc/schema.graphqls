@@ -1,0 +1,18 @@
+type WishlistItems {
+  name: String
+  price: Float
+}
+
+type Wishlists {
+  item: [WishlistItems!]!
+}
+
+type RemoveFromWishlistPayloads {
+  success: Boolean!
+  message: String!
+  wishlists: Wishlists
+}
+
+type Mutation {
+  removeFromWishlists(productId: Int!): RemoveFromWishlistPayloads @resolver(class: "Sigma\\RemoveFromWishlist\\Model\\Resolver\\RemoveFromWishlist") @doc(description: "Remove a product from the customer's wishlist")
+}

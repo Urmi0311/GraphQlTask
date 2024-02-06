@@ -1,0 +1,20 @@
+type WishlistItems {
+  name: String
+  price: Float
+}
+
+type Mutation {
+  addToWishlists(productId: Int!): AddToWishlistPayloads @resolver(class: "Sigma\\AddToWishlist\\Model\\Resolver\\AddToWishlist") @doc(description: "Add a product to the customer's wishlist")
+}
+
+type Wishlists {
+  item: [WishlistItems!]!
+}
+
+type AddToWishlistPayloads {
+  success: Boolean!
+  message: String!
+  wishlists: Wishlists
+}
+
+
