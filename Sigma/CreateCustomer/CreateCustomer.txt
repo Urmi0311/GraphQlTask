@@ -1,0 +1,11 @@
+
+FILE: /var/www/html/magento1/app/code/Sigma/CreateCustomer/Model/Resolver/CreateCustomer.php
+--------------------------------------------------------------------------------------------
+FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
+--------------------------------------------------------------------------------------------
+ 159 | WARNING | [x] Expected 1 newline at end of file; 0 found
+--------------------------------------------------------------------------------------------
+PHPCBF CAN FIX THE 1 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+--------------------------------------------------------------------------------------------
+
+
